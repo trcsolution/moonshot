@@ -4,13 +4,15 @@ TRC Odoo 20 Accelerator lab data. **Synthetic only.** Mundo Coffee is a fictiona
 item names are generic coffee-shop terms, and no third-party trademarks, cup-size names,
 logos or branded imagery may be added (see the brief's brand caveat).
 
-Target DB: Odoo 20 Enterprise, US localisation (USD), **Odoo demo data off**, self-hosted.
+Target DB: `pstest-trc-mundo-coffee.odoo.com` (Odoo Online), US localisation (USD), **Odoo demo data off**.
+Build plan and brief traceability: [`PLAN.md`](PLAN.md). The proof uses the 10 `in_proof = Y` items; the other 10 are catalogue only (`--all`).
+Size and modifier options are a TRC addition, not a brief requirement.
 
 ## Contents
 
 | Path | What it is |
 |---|---|
-| `data/products.csv` | 20 menu items: base price (Small), POS category, prep and max-hold minutes, allergens, image file |
+| `data/products.csv` | 20 menu items (10 flagged `in_proof`): base price (Small), POS category, prep and max-hold minutes, allergens, image file |
 | `data/attributes.csv` | 8 modifier groups / 32 values, with price extras and prep-time deltas |
 | `data/attribute_profiles.csv` | Which modifier groups each product type gets |
 | `data/pos_notes.csv` | 18 free kitchen instructions (no charge), loaded as predefined POS notes |
@@ -45,7 +47,7 @@ choice drives the recipe, and the note tells the barista to also go sugar-free a
 | Croissant not warmed + blueberry muffin | Croissant · Not warmed; Muffin | 3.45 + 3.25 = **$6.70** | 1:00 / 0:00 |
 
 Use these as POS test cases: the totals check the price extras, and the prep column
-checks `trc_order_release` once its prep-delta logic is built (est. prep = product prep
+checks the release engine's prep-delta logic (est. prep = product prep
 minutes + sum of the selected values' `prep_delta_seconds`; Large adds 15s).
 
 ## Loading
@@ -58,9 +60,10 @@ ODOO_URL=https://... ODOO_DB=mundo_us ODOO_API_KEY=... python3 tools/load_menu.p
 
 - Re-runnable: records are matched on name / `default_code` and updated in place.
 - Uses the JSON-2 API (`/json/2/<model>/<method>`), not XML-RPC.
-- Custom fields (`trc_prep_minutes`, `trc_max_hold_minutes`, `trc_allergens`,
-  `trc_prep_delta_seconds`) are written only if `trc_order_release` is installed. Re-run
-  the loader after installing the module.
+- Custom fields (`x_prep_minutes`, `x_max_hold_minutes`, `x_allergens`,
+  `x_prep_delta_seconds`) are written only if they exist. Create them first (PLAN.md).
+- External API access on Odoo Online depends on the plan (*verify*). If it is unavailable,
+  use the standard CSV import screens with the same files.
 - Sales tax is not set by the loader. Configure it from the US fiscal localisation for the
   chosen state.
 

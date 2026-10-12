@@ -1,21 +1,21 @@
-default_code,name,pos_category,list_price,prep_minutes,max_hold_minutes,attribute_profile,allergens,description_sale,image_file
-MC-H01,Caffè Latte,Hot Drinks,4.95,3,5,hot_milk,Milk,Double espresso with steamed milk and a thin layer of microfoam.,MC-H01-caffe-latte.jpg
-MC-H02,Cappuccino,Hot Drinks,4.95,3,5,hot_milk,Milk,Double espresso with equal parts steamed milk and deep foam.,MC-H02-cappuccino.jpg
-MC-H03,Flat White,Hot Drinks,5.25,3,5,hot_milk,Milk,Ristretto shots with velvety whole-milk microfoam.,MC-H03-flat-white.jpg
-MC-H04,Americano,Hot Drinks,3.95,2,8,hot_black,,Espresso topped with hot water.,MC-H04-americano.jpg
-MC-H05,Caramel Macchiato,Hot Drinks,5.75,4,5,hot_milk,Milk,Vanilla steamed milk marked with espresso and finished with caramel drizzle.,MC-H05-caramel-macchiato.jpg
-MC-H06,Mocha,Hot Drinks,5.45,4,5,hot_milk,Milk,Espresso with chocolate sauce and steamed milk; topped with whipped cream.,MC-H06-mocha.jpg
-MC-H07,Chai Tea Latte,Hot Drinks,5.25,3,6,hot_tea_milk,Milk,Spiced black tea concentrate with steamed milk.,MC-H07-chai-tea-latte.jpg
-MC-H08,Matcha Latte,Hot Drinks,5.45,4,5,hot_tea_milk,Milk,Stone-ground green tea whisked with steamed milk.,MC-H08-matcha-latte.jpg
-MC-H09,House Drip Coffee,Hot Drinks,2.95,1,10,hot_drip,,Medium-roast filter coffee brewed throughout the day.,MC-H09-house-drip-coffee.jpg
-MC-C01,Iced Latte,Cold Drinks,5.25,3,10,cold_milk,Milk,Espresso and cold milk poured over ice.,MC-C01-iced-latte.jpg
-MC-C02,Cold Brew,Cold Drinks,4.75,1,15,cold_black,,Coffee steeped cold for 20 hours and served over ice.,MC-C02-cold-brew.jpg
-MC-C03,Vanilla Sweet Cream Cold Brew,Cold Drinks,5.45,2,12,cold_black,Milk,Cold brew topped with house vanilla sweet cream.,MC-C03-vanilla-sweet-cream-cold-brew.jpg
-MC-C04,Iced Caramel Macchiato,Cold Drinks,5.95,3,10,cold_milk,Milk,Vanilla cold milk and ice marked with espresso and caramel drizzle.,MC-C04-iced-caramel-macchiato.jpg
-MC-C05,Mocha Frost,Cold Drinks,6.25,5,4,blended,Milk,Coffee and chocolate blended with ice and milk; topped with whipped cream.,MC-C05-mocha-frost.jpg
-MC-C06,Berry Hibiscus Cooler,Cold Drinks,4.95,3,10,cold_tea,,Hibiscus and mixed-berry infusion shaken with ice.,MC-C06-berry-hibiscus-cooler.jpg
-MC-F01,Bacon & Egg Breakfast Sandwich,Warm Food,5.95,6,8,food_hot,Wheat|Egg|Milk,Smoked bacon; free-range egg and cheddar on a toasted English muffin.,MC-F01-bacon-egg-sandwich.jpg
-MC-F02,Spinach & Feta Wrap,Warm Food,5.45,6,8,food_hot,Wheat|Egg|Milk,Egg whites; spinach; feta and sun-dried tomato in a whole-wheat wrap.,MC-F02-spinach-feta-wrap.jpg
-MC-F03,Butter Croissant,Bakery,3.45,3,10,food_bakery_warm,Wheat|Milk|Egg,All-butter croissant; served warm on request.,MC-F03-butter-croissant.jpg
-MC-F04,Blueberry Muffin,Bakery,3.25,0,60,,Wheat|Milk|Egg|Soy,Moist muffin packed with blueberries and a streusel top.,MC-F04-blueberry-muffin.jpg
-MC-F05,Cheese & Tomato Panini,Warm Food,7.25,7,8,food_hot,Wheat|Milk,Mozzarella; tomato and basil pesto pressed on ciabatta.,MC-F05-cheese-tomato-panini.jpg
+default_code,in_proof,name,pos_category,list_price,prep_minutes,max_hold_minutes,attribute_profile,allergens,description_sale,image_file
+MC-H01,Y,Caffè Latte,Hot Drinks,4.95,3,5,hot_milk,Milk,Double espresso with steamed milk and a thin layer of microfoam.,MC-H01-caffe-latte.jpg
+MC-H02,Y,Cappuccino,Hot Drinks,4.95,3,5,hot_milk,Milk,Double espresso with equal parts steamed milk and deep foam.,MC-H02-cappuccino.jpg
+MC-H03,N,Flat White,Hot Drinks,5.25,3,5,hot_milk,Milk,Ristretto shots with velvety whole-milk microfoam.,MC-H03-flat-white.jpg
+MC-H04,Y,Americano,Hot Drinks,3.95,2,8,hot_black,,Espresso topped with hot water.,MC-H04-americano.jpg
+MC-H05,Y,Caramel Macchiato,Hot Drinks,5.75,4,5,hot_milk,Milk,Vanilla steamed milk marked with espresso and finished with caramel drizzle.,MC-H05-caramel-macchiato.jpg
+MC-H06,N,Mocha,Hot Drinks,5.45,4,5,hot_milk,Milk,Espresso with chocolate sauce and steamed milk; topped with whipped cream.,MC-H06-mocha.jpg
+MC-H07,N,Chai Tea Latte,Hot Drinks,5.25,3,6,hot_tea_milk,Milk,Spiced black tea concentrate with steamed milk.,MC-H07-chai-tea-latte.jpg
+MC-H08,N,Matcha Latte,Hot Drinks,5.45,4,5,hot_tea_milk,Milk,Stone-ground green tea whisked with steamed milk.,MC-H08-matcha-latte.jpg
+MC-H09,N,House Drip Coffee,Hot Drinks,2.95,1,10,hot_drip,,Medium-roast filter coffee brewed throughout the day.,MC-H09-house-drip-coffee.jpg
+MC-C01,Y,Iced Latte,Cold Drinks,5.25,3,10,cold_milk,Milk,Espresso and cold milk poured over ice.,MC-C01-iced-latte.jpg
+MC-C02,Y,Cold Brew,Cold Drinks,4.75,1,15,cold_black,,Coffee steeped cold for 20 hours and served over ice.,MC-C02-cold-brew.jpg
+MC-C03,N,Vanilla Sweet Cream Cold Brew,Cold Drinks,5.45,2,12,cold_black,Milk,Cold brew topped with house vanilla sweet cream.,MC-C03-vanilla-sweet-cream-cold-brew.jpg
+MC-C04,N,Iced Caramel Macchiato,Cold Drinks,5.95,3,10,cold_milk,Milk,Vanilla cold milk and ice marked with espresso and caramel drizzle.,MC-C04-iced-caramel-macchiato.jpg
+MC-C05,Y,Mocha Frost,Cold Drinks,6.25,5,4,blended,Milk,Coffee and chocolate blended with ice and milk; topped with whipped cream.,MC-C05-mocha-frost.jpg
+MC-C06,N,Berry Hibiscus Cooler,Cold Drinks,4.95,3,10,cold_tea,,Hibiscus and mixed-berry infusion shaken with ice.,MC-C06-berry-hibiscus-cooler.jpg
+MC-F01,Y,Bacon & Egg Breakfast Sandwich,Warm Food,5.95,6,8,food_hot,Wheat|Egg|Milk,Smoked bacon; free-range egg and cheddar on a toasted English muffin.,MC-F01-bacon-egg-sandwich.jpg
+MC-F02,N,Spinach & Feta Wrap,Warm Food,5.45,6,8,food_hot,Wheat|Egg|Milk,Egg whites; spinach; feta and sun-dried tomato in a whole-wheat wrap.,MC-F02-spinach-feta-wrap.jpg
+MC-F03,N,Butter Croissant,Bakery,3.45,3,10,food_bakery_warm,Wheat|Milk|Egg,All-butter croissant; served warm on request.,MC-F03-butter-croissant.jpg
+MC-F04,Y,Blueberry Muffin,Bakery,3.25,0,60,,Wheat|Milk|Egg|Soy,Moist muffin packed with blueberries and a streusel top.,MC-F04-blueberry-muffin.jpg
+MC-F05,Y,Cheese & Tomato Panini,Warm Food,7.25,7,8,food_hot,Wheat|Milk,Mozzarella; tomato and basil pesto pressed on ciabatta.,MC-F05-cheese-tomato-panini.jpg

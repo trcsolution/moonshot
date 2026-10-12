@@ -155,7 +155,7 @@ def load(api, products, attributes, notes, attr_meta, profile_lines):
     for seq, name in enumerate(dict.fromkeys(r["pos_category"] for r in products), 1):
         categ_ids[name] = api.upsert("pos.category", [["name", "=", name]], {"name": name, "sequence": seq})
 
-    # Attributes and values; trc_* fields only exist once trc_order_release is installed
+    # Attributes and values; x_* fields exist once created in Studio / developer mode (see PLAN.md)
     value_fields = api.fields("product.attribute.value")
     attr_ids, value_ids = {}, {}
     for name, (cv, dt) in attr_meta.items():
@@ -167,8 +167,8 @@ def load(api, products, attributes, notes, attr_meta, profile_lines):
         vals = {"name": a["value"], "attribute_id": attr_ids[a["attribute"]], "sequence": int(a["sequence"])}
         if "default_extra_price" in value_fields:
             vals["default_extra_price"] = float(a["price_extra"])
-        if "trc_prep_delta_seconds" in value_fields:
-            vals["trc_prep_delta_seconds"] = int(a["prep_delta_seconds"])
+        if "x_prep_delta_seconds" in value_fields:
+            vals["x_prep_delta_seconds"] = int(a["prep_delta_seconds"])
         value_ids[(a["attribute"], a["value"])] = api.upsert(
             "product.attribute.value",
             [["attribute_id", "=", attr_ids[a["attribute"]]], ["name", "=", a["value"]]],
@@ -187,11 +187,11 @@ def load(api, products, attributes, notes, attr_meta, profile_lines):
             "pos_categ_ids": [[6, 0, [categ_ids[r["pos_category"]]]]],
             "description_sale": r["description_sale"],
         }
-        if "trc_prep_minutes" in tmpl_fields:
-            vals["trc_prep_minutes"] = int(r["prep_minutes"])
-            vals["trc_max_hold_minutes"] = int(r["max_hold_minutes"])
-        if "trc_allergens" in tmpl_fields:
-            vals["trc_allergens"] = r["allergens"].replace("|", ", ")
+        if "x_prep_minutes" in tmpl_fields:
+            vals["x_prep_minutes"] = int(r["prep_minutes"])
+            vals["x_max_hold_minutes"] = int(r["max_hold_minutes"])
+        if "x_allergens" in tmpl_fields:
+            vals["x_allergens"] = r["allergens"].replace("|", ", ")
         img = IMAGES / r["image_file"]
         if img.exists():
             vals["image_1920"] = base64.b64encode(img.read_bytes()).decode()
@@ -228,9 +228,13 @@ def main():
     mode = ap.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--all", action="store_true", help="load the full 20-item catalogue, not just the 10 in_proof items")
     args = ap.parse_args()
 
     products, attributes, profiles, notes, manifest = load_data()
+    if not args.all:
+        products = [r for r in products if r["in_proof"] == "Y"]
+        manifest = [m for m in manifest if m["default_code"] in {r["default_code"] for r in products}]
     errors, warnings, attr_meta, profile_lines = validate(products, attributes, profiles, notes, manifest)
     for w in warnings:
         print("WARN ", w)
