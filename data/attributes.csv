@@ -1,0 +1,33 @@
+attribute,create_variant,display_type,value,price_extra,prep_delta_seconds,sequence,notes
+Size,always,pills,Small 12oz,0.00,0,1,Base price is Small
+Size,always,pills,Medium 16oz,0.60,0,2,
+Size,always,pills,Large 20oz,1.10,15,3,
+Milk,no_variant,radio,Whole milk,0.00,0,1,Default
+Milk,no_variant,radio,Skim milk (skinny),0.00,0,2,Skinny = skim; pair with Sugar-free vanilla if requested
+Milk,no_variant,radio,2% milk,0.00,0,3,
+Milk,no_variant,radio,Oat milk,0.70,0,4,
+Milk,no_variant,radio,Almond milk,0.70,0,5,Tree nut allergen
+Milk,no_variant,radio,Soy milk,0.60,0,6,Soy allergen
+Milk,no_variant,radio,Lactose-free milk,0.50,0,7,
+Espresso,no_variant,pills,Regular,0.00,0,1,Default
+Espresso,no_variant,pills,Decaf,0.00,0,2,
+Espresso,no_variant,pills,Half-caf,0.00,0,3,
+Temperature,no_variant,pills,Standard,0.00,0,1,Default
+Temperature,no_variant,pills,Extra hot,0.00,15,2,
+Temperature,no_variant,pills,Kids temp,0.00,0,3,Approx. 130F
+Ice,no_variant,pills,Regular ice,0.00,0,1,Default
+Ice,no_variant,pills,Light ice,0.00,0,2,
+Ice,no_variant,pills,Extra ice,0.00,0,3,
+Ice,no_variant,pills,No ice,0.00,0,4,
+Extras,no_variant,multi,Extra espresso shot,0.90,20,1,Chargeable
+Extras,no_variant,multi,Vanilla syrup,0.60,5,2,Chargeable
+Extras,no_variant,multi,Caramel syrup,0.60,5,3,Chargeable
+Extras,no_variant,multi,Hazelnut syrup,0.60,5,4,Chargeable; tree nut allergen
+Extras,no_variant,multi,Sugar-free vanilla syrup,0.60,5,5,Chargeable
+Extras,no_variant,multi,Caramel drizzle,0.50,5,6,Chargeable
+Extras,no_variant,multi,Whipped cream,0.50,5,7,Chargeable where not standard
+Extras,no_variant,multi,Vanilla cold foam,1.00,20,8,Chargeable; cold drinks only
+Warming,no_variant,pills,Warmed,0.00,0,1,Default for croissant
+Warming,no_variant,pills,Not warmed,0.00,-120,2,
+Food extras,no_variant,multi,Extra cheese,0.75,0,1,Chargeable
+Food extras,no_variant,multi,Add avocado,1.25,30,2,Chargeable

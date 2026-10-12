@@ -1,0 +1,19 @@
+sequence,name,applies_to,kitchen_meaning
+1,No whipped cream,Drinks,Omit standard whipped cream (Mocha; Mocha Frost)
+2,No cream,Drinks,No cream or sweet cream topping
+3,Skinny,Drinks,Skim milk and sugar-free syrup substitution; no whip
+4,No foam,Hot milk drinks,Pour without foam
+5,Extra foam,Hot milk drinks,Extra foam (no charge)
+6,Dry,Cappuccino,More foam; less milk
+7,Wet,Cappuccino,More milk; less foam
+8,Upside down,Macchiato,Espresso first then milk (stirred)
+9,Room for milk,Black coffee,Leave approx. 1 inch at top
+10,Light caramel drizzle,Drinks,Reduced drizzle (no charge)
+11,No sugar / unsweetened,Drinks,Omit standard sweetener (e.g. Vanilla Sweet Cream; Chai)
+12,Light sweet,Drinks,Half pumps of standard syrup
+13,Split shot (half decaf),Espresso drinks,Same as Half-caf attribute; use attribute where possible
+14,No bacon,Breakfast sandwich,Omit bacon (no price change)
+15,No cheese,Food,Omit cheese (no price change)
+16,Cut in half,Food,Slice before bagging
+17,Separate bag,Food,Bag separately from drinks
+18,ALLERGY - please check with guest,All,Stop and verify allergen request before preparing

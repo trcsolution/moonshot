@@ -1,0 +1,30 @@
+attribute_profile,attribute,values
+hot_milk,Size,Small 12oz|Medium 16oz|Large 20oz
+hot_milk,Milk,*
+hot_milk,Espresso,*
+hot_milk,Temperature,*
+hot_milk,Extras,Extra espresso shot|Vanilla syrup|Caramel syrup|Hazelnut syrup|Sugar-free vanilla syrup|Caramel drizzle|Whipped cream
+hot_black,Size,Small 12oz|Medium 16oz|Large 20oz
+hot_black,Espresso,*
+hot_black,Extras,Extra espresso shot|Vanilla syrup|Caramel syrup|Hazelnut syrup|Sugar-free vanilla syrup
+hot_drip,Size,Small 12oz|Medium 16oz|Large 20oz
+hot_drip,Extras,Extra espresso shot|Vanilla syrup|Caramel syrup|Hazelnut syrup|Sugar-free vanilla syrup
+hot_tea_milk,Size,Small 12oz|Medium 16oz|Large 20oz
+hot_tea_milk,Milk,*
+hot_tea_milk,Temperature,*
+hot_tea_milk,Extras,Extra espresso shot|Vanilla syrup|Sugar-free vanilla syrup|Whipped cream
+cold_milk,Size,Small 12oz|Medium 16oz|Large 20oz
+cold_milk,Milk,*
+cold_milk,Espresso,*
+cold_milk,Ice,*
+cold_milk,Extras,Extra espresso shot|Vanilla syrup|Caramel syrup|Hazelnut syrup|Sugar-free vanilla syrup|Caramel drizzle|Vanilla cold foam
+cold_black,Size,Small 12oz|Medium 16oz|Large 20oz
+cold_black,Ice,*
+cold_black,Extras,Vanilla syrup|Caramel syrup|Hazelnut syrup|Sugar-free vanilla syrup|Vanilla cold foam
+blended,Size,Small 12oz|Medium 16oz|Large 20oz
+blended,Milk,*
+blended,Extras,Extra espresso shot|Caramel drizzle|Whipped cream
+cold_tea,Size,Small 12oz|Medium 16oz|Large 20oz
+cold_tea,Ice,*
+food_hot,Food extras,*
+food_bakery_warm,Warming,*
