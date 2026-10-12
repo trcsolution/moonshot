@@ -66,8 +66,8 @@ SaaS) · **Sim** simulated per brief · **Gap** cannot be met on Odoo Online and
 | Proof | Delayed customer, overloaded kitchen | Scenarios S2 and S4 below | Sim |
 | Proof | Report build time, gaps, risks, test outcomes | `EVIDENCE.md` + timed effort log | n/a |
 | Proof | No production claim from UI mockup | Report states SaaS/simulated scope explicitly | n/a |
-| Verify list | Kitchen display / POS API / queue telemetry | **Gap**: native Preparation Display receives orders at payment and cannot be held on SaaS (*verify*); production needs a custom module (Odoo.sh / on-prem) | **Gap** |
-| Verify list | Consent, minimisation, revocation, deletion of location data | No real location data. Consent flag + ETA only; `Withdraw consent` button clears ETA history and falls back to pickup time | S |
+| Verify list | Kitchen display / POS API / queue telemetry | **Gap**: in Odoo 20 kitchen preparation orders (`pos.prep.order`) are created by the POS front end and cannot be held on SaaS; production needs a custom module (Odoo.sh / on-prem) | **Gap** |
+| Verify list | Consent, minimisation, revocation, deletion of location data | No real location data. Consent flag + ETA only; `Withdraw consent` deletes ETA data (never tracked) and falls back to pickup time | S |
 | Verify list | Cancellations, refunds, late customers | Cancel button → state `cancelled` and refund via native POS refund; late handled by S3 | N/S |
 | Verify list | Fraud, traffic changes, poor connectivity | Not tested; listed as risks in report | **Gap** |
 | Verify list | WhatsApp live location lawful/technical integration | Verified **not available**: see *WhatsApp plan* | **Gap** (by platform) |
@@ -112,56 +112,24 @@ templates are approved.
 
 ## Build design (all in-DB, no custom Python module)
 
-### Fields (developer mode › Technical › Fields, or Studio; manual fields must start `x_`)
+**Built:** step-by-step configuration in [`studio/BUILD_GUIDE.md`](studio/BUILD_GUIDE.md). The ten
+server actions in [`studio/actions/`](studio/actions/) are paste-ready and tested offline under the
+Odoo 20 sandbox rules ([`EVIDENCE.md`](EVIDENCE.md)).
 
-| Model | Field | Type |
-|---|---|---|
-| product.template | `x_prep_minutes`, `x_max_hold_minutes` | Integer |
-| product.template | `x_allergens` | Char |
-| product.attribute.value | `x_prep_delta_seconds` | Integer |
-
-### Studio model `x_pickup_release` (chatter on, all fields tracked)
-
-`x_name` (order ref) · `x_pos_order_id` (m2o pos.order, required) · `x_amount_paid` (related) ·
-`x_location_consent` (bool) · `x_pickup_requested` (datetime) · `x_eta` (datetime) ·
-`x_prep_minutes_total` (int) · `x_max_hold_minutes` (int, min of lines) · `x_release_at` ·
-`x_ready_by` · `x_target_at` (datetime) · `x_state` (selection: held / released / preparing /
-ready / collected / revised / late_alert / cancelled) · `x_override` (bool) · `x_override_reason`
-(char) · `x_override_by` (m2o res.users).
-
-Supporting Studio models: `x_venue_config` (barista capacity, buffer minutes, simulated `x_now`)
-and `x_eta_event` (release, at simulated minute, new ETA): the scenario script.
-
-### Automations (Studio › Automations; Python code server actions)
-
-1. **Create release on payment.** Trigger: `pos.order` state becomes paid. Creates one
-   `x_pickup_release`, copies prep totals, sets state `held`. This is the only creation path,
-   which is acceptance check 3.
-2. **Recalculate release** (on ETA/pickup change, and on each clock tick):
-
-   ```text
-   target    = ETA if consent else pickup_requested
-   wait      = sum(prep of released+preparing orders) / barista capacity
-   release   = target - prep_total - wait - buffer
-   if state == held:
-       if release <= now:                      # early arrival / tight order
-           release now
-           ready_by = now + wait + prep_total
-           if ready_by > target: state = revised, post new collection time   # AC1, flow G->I
-           else: state = released
-       else: keep held, store release_at                                    # AC2 postpone
-   if state in (preparing, ready) and ETA moved later
-          and target > ready_by + max_hold:  state = late_alert, post alert # AC2 late change
-   if x_override: skip recalculation, keep staff release_at                  # AC5
-   ```
-
-3. **Advance clock +1 min / +5 min** buttons on `x_venue_config`. They apply due `x_eta_event` rows,
-   then run Recalculate for open releases. This makes the demo repeatable and avoids depending on
-   scheduled-action frequency on SaaS.
-4. **Kitchen buttons** on the kanban: Accept (`preparing`), Ready (sends express-pickup message),
-   Collected, Cancel.
-5. **Staff override**: set `x_release_at` plus a reason (required). Tracked in chatter with user and
-   timestamp.
+- **Models:** `x_pickup_release` (one per paid order, chatter), `x_venue_config` (simulated clock,
+  capacity, buffer, venue timezone), `x_eta_event` (scripted ETA changes).
+- **Pickup time is always known:** the only self-order preset uses timed slots, so every order
+  carries `preset_time`. Consent plus ETA, when given, takes precedence.
+- **Release rule:** release = target − prep − queue wait − buffer. Queue wait = prep minutes of
+  released/revised/preparing orders ÷ baristas. When due: release, or mark `revised` with a new
+  collection time if the kitchen cannot meet the target. A released order the kitchen has not
+  accepted is pulled back to `held` if the ETA moves later.
+- **Late alert** is a flag (`x_late_alert`) plus a chatter alert, raised once when the customer will
+  now arrive after the hold window of an order in preparation. The kitchen state is unchanged.
+- **Override:** staff enter a release time and a mandatory reason. The ETA no longer moves it.
+  User, reason and time are posted to chatter.
+- **Privacy:** ETA-derived fields are not tracked and messages never contain arrival times, so a
+  consent withdrawal leaves no arrival data behind.
 
 ## Acceptance tests (brief acceptance checks → scenarios)
 
@@ -171,13 +139,13 @@ Run each from a reset scenario with the clock at 08:00, 2 baristas, 1 min buffer
 |---|---|---|---|
 | S1 | Baseline | Latte (3 min), consent, ETA 08:15 | Held until 08:11, released, ready 08:14, collected |
 | S2 | Delayed ETA postpones release | Panini (7 min), ETA 08:15 then 08:25 at 08:03 | Release moves 08:07 → 08:17; never released early |
-| S3 | Late change after prep | Mocha Frost (5 min, hold 4), released, ETA +15 min after Accept | `late_alert` posted; staff sees it on board |
+| S3 | Late change after prep | Mocha Frost (5 min, hold 4), released, ETA +15 min after Accept | Late-alert flag + one chatter alert; order stays in preparation |
 | S4 | Overloaded kitchen / early arrival cannot force impossible deadline | 6 food orders released at 08:00, new panini order with ETA 08:05 | `revised`, new collection time ≥ 08:05 + queue; customer message posted |
 | S5 | Decline location | Cold Brew, no consent, pickup slot 08:30 | Released at 08:28 from pickup time; flow works without ETA |
 | S6 | Traceability | Any released order | Links to one paid POS order with a unique ref; no release exists without payment |
-| S7 | Staff override with audit | Override S2 release to 08:10, reason "regular, early" | Release at 08:10; chatter shows user, old/new value, reason |
+| S7 | Staff override with audit | Override S2 release to 08:10, reason "regular, early" | Release at 08:10 despite later ETA change; chatter shows user, time, reason |
 | S8 | Reconcile | Close POS session after S1–S7 | Journal entries posted; muffin stock reduced |
-| S9 | Consent withdrawal | Withdraw consent on an S2-type order | ETA cleared, falls back to pickup time, chatter logged |
+| S9 | Consent withdrawal | Withdraw consent on an S2-type order | ETA and scripted ETA events deleted, falls back to pickup time, no arrival time left in chatter |
 
 ## Deprioritised alternatives
 

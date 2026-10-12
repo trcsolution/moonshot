@@ -18,6 +18,11 @@ Size and modifier options are a TRC addition, not a brief requirement.
 | `data/pos_notes.csv` | 18 free kitchen instructions (no charge), loaded as predefined POS notes |
 | `images/MANIFEST.csv` | Image file names, search terms and licence record (images not yet sourced) |
 | `tools/load_menu.py` | Validator and JSON-2 loader (`--check`, `--dry-run`, live) |
+| `PLAN.md` | Build plan, brief traceability, acceptance scenarios, WhatsApp plan |
+| `studio/BUILD_GUIDE.md` | Click-path to build the release engine in the Odoo Online DB |
+| `studio/actions/` | Ten paste-ready server actions (release engine, clock, kitchen buttons, override, consent, webhook) |
+| `tests/` | Runs the actions under Odoo 20 sandbox rules against scenarios S1–S9 (`python3 -m unittest discover -s tests`) |
+| `EVIDENCE.md` | Brief compliance review, scenario results, gaps, build-time log |
 
 ## Modifier design
 
@@ -68,9 +73,9 @@ ODOO_URL=https://... ODOO_DB=mundo_us ODOO_API_KEY=... python3 tools/load_menu.p
 - Sales tax is not set by the loader. Configure it from the US fiscal localisation for the
   chosen state.
 
-**Not yet verified against a live Odoo 20 instance (*verify* each on Day 1):** the JSON-2
-request body format, `default_extra_price` on attribute values, the `multi` display type
-in POS, and the `pos.note` model name. The loader skips or warns where a field or model
+Confirmed in Odoo 20.0 source: `default_extra_price` on attribute values, the `multi`
+display type, and the `pos.note` model. **Still to verify on the DB:** the JSON-2 request body
+format and external API access on the plan. The loader skips or warns where a field or model
 is missing rather than failing.
 
 ## Images
