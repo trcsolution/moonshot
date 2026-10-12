@@ -76,6 +76,10 @@ def validate(products, attributes, profiles, notes, manifest):
                 errors.append(f"profile {p['attribute_profile']}: {attr} has no value {v}")
         profile_lines[p["attribute_profile"]].append((attr, vals))
 
+    if len(products) != 10:
+        errors.append(f"brief specifies 10 products; found {len(products)}")
+    if len(manifest) != len(products):
+        errors.append(f"manifest has {len(manifest)} rows for {len(products)} products")
     codes = set()
     for r in products:
         code = r["default_code"]
@@ -91,6 +95,15 @@ def validate(products, attributes, profiles, notes, manifest):
             errors.append(f"product {code}: unknown attribute_profile {r['attribute_profile']}")
         if not (IMAGES / r["image_file"]).exists():
             warnings.append(f"product {code}: image {r['image_file']} not yet downloaded")
+
+    used = {r["attribute_profile"] for r in products}
+    for prof in profile_lines:
+        if prof not in used:
+            errors.append(f"profile {prof}: not used by any product")
+    used_attrs = {a for lines in profile_lines.values() for a, _ in lines}
+    for name in attr_values:
+        if name not in used_attrs:
+            errors.append(f"attribute {name}: not used by any profile")
 
     man_codes = {m["default_code"]: m for m in manifest}
     for r in products:
@@ -228,13 +241,9 @@ def main():
     mode = ap.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--all", action="store_true", help="load the full 20-item catalogue, not just the 10 in_proof items")
     args = ap.parse_args()
 
     products, attributes, profiles, notes, manifest = load_data()
-    if not args.all:
-        products = [r for r in products if r["in_proof"] == "Y"]
-        manifest = [m for m in manifest if m["default_code"] in {r["default_code"] for r in products}]
     errors, warnings, attr_meta, profile_lines = validate(products, attributes, profiles, notes, manifest)
     for w in warnings:
         print("WARN ", w)

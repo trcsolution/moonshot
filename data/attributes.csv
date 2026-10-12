@@ -27,7 +27,5 @@ Extras,no_variant,multi,Sugar-free vanilla syrup,0.60,5,5,Chargeable
 Extras,no_variant,multi,Caramel drizzle,0.50,5,6,Chargeable
 Extras,no_variant,multi,Whipped cream,0.50,5,7,Chargeable where not standard
 Extras,no_variant,multi,Vanilla cold foam,1.00,20,8,Chargeable; cold drinks only
-Warming,no_variant,pills,Warmed,0.00,0,1,Default for croissant
-Warming,no_variant,pills,Not warmed,0.00,-120,2,
 Food extras,no_variant,multi,Extra cheese,0.75,0,1,Chargeable
 Food extras,no_variant,multi,Add avocado,1.25,30,2,Chargeable

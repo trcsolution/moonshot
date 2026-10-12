@@ -5,15 +5,15 @@ item names are generic coffee-shop terms, and no third-party trademarks, cup-siz
 logos or branded imagery may be added (see the brief's brand caveat).
 
 Target DB: `pstest-trc-mundo-coffee.odoo.com` (Odoo Online), US localisation (USD), **Odoo demo data off**.
-Build plan and brief traceability: [`PLAN.md`](PLAN.md). The proof uses the 10 `in_proof = Y` items; the other 10 are catalogue only (`--all`).
+Build plan and brief traceability: [`PLAN.md`](PLAN.md). Exactly 10 products, as the brief specifies (the loader enforces it).
 Size and modifier options are a TRC addition, not a brief requirement.
 
 ## Contents
 
 | Path | What it is |
 |---|---|
-| `data/products.csv` | 20 menu items (10 flagged `in_proof`): base price (Small), POS category, prep and max-hold minutes, allergens, image file |
-| `data/attributes.csv` | 8 modifier groups / 32 values, with price extras and prep-time deltas |
+| `data/products.csv` | 10 menu items: base price (Small), POS category, prep and max-hold minutes, allergens, image file |
+| `data/attributes.csv` | 7 modifier groups / 30 values, with price extras and prep-time deltas |
 | `data/attribute_profiles.csv` | Which modifier groups each product type gets |
 | `data/pos_notes.csv` | 18 free kitchen instructions (no charge), loaded as predefined POS notes |
 | `images/MANIFEST.csv` | Image file names, search terms and licence record (images not yet sourced) |
@@ -40,11 +40,12 @@ choice drives the recipe, and the note tells the barista to also go sugar-free a
 |---|---|---|---|
 | Large oat latte, extra shot, no foam | Caffè Latte · Large · Oat · Extras: shot · Note: No foam | 4.95 + 1.10 + 0.70 + 0.90 = **$7.65** | 3:35 |
 | Medium skinny vanilla latte | Caffè Latte · Medium · Skim · Extras: SF vanilla · Note: Skinny | 4.95 + 0.60 + 0.60 = **$6.15** | 3:05 |
-| Medium mocha, no whip | Mocha · Medium · Note: No whipped cream | 5.45 + 0.60 = **$6.05** | 4:00 |
-| Large iced caramel macchiato, cold foam, light ice | Iced Caramel Macchiato · Large · Ice: Light · Extras: cold foam | 5.95 + 1.10 + 1.00 = **$8.05** | 3:35 |
+| Medium mocha frost, no whip | Mocha Frost · Medium · Note: No whipped cream | 6.25 + 0.60 = **$6.85** | 5:00 |
+| Large iced latte, cold foam, light ice | Iced Latte · Large · Ice: Light · Extras: cold foam | 5.25 + 1.10 + 1.00 = **$7.35** | 3:35 |
 | Small cappuccino, dry, decaf | Cappuccino · Small · Espresso: Decaf · Note: Dry | **$4.95** | 3:00 |
 | Breakfast sandwich, no bacon, add avocado | Bacon & Egg Sandwich · Food extras: avocado · Note: No bacon | 5.95 + 1.25 = **$7.20** | 6:30 |
-| Croissant not warmed + blueberry muffin | Croissant · Not warmed; Muffin | 3.45 + 3.25 = **$6.70** | 1:00 / 0:00 |
+| Medium caramel macchiato, upside down, light drizzle | Caramel Macchiato · Medium · Notes: Upside down, Light caramel drizzle | 5.75 + 0.60 = **$6.35** | 4:00 |
+| Blueberry muffin | Muffin | **$3.25** | 0:00 |
 
 Use these as POS test cases: the totals check the price extras, and the prep column
 checks the release engine's prep-delta logic (est. prep = product prep
