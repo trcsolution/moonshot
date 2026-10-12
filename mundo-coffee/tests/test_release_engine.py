@@ -1,6 +1,6 @@
 """Brief acceptance scenarios S1-S9 (PLAN.md) run against the real server-action files.
 
-Run from odoo-accelerator/mundo-coffee:  python3 -m unittest discover -s tests -v
+Run from mundo-coffee/:  python3 -m unittest discover -s tests -v
 """
 import csv
 import unittest
